@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "address-book-api"
+version = "0.1.0"
+description = "FastAPI Address Book API with geolocation search"
+authors = ["Tushar Dhiman"]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+fastapi = "^0.115"
+uvicorn = "^0.30"
+sqlalchemy = "^2.0"
+geopy = "^2.4"
+python-dotenv = "^1.0"
+aiosqlite = "^0.22.1"
+
+[tool.poetry.scripts]
+start-address_book = "address_book_api.run:start"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0"
+black = "^24.0"
+isort = "^5.13"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
