@@ -9,7 +9,13 @@ logger = get_logger(__name__)
 
 router = APIRouter()
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+
+@router.post(
+    "/",
+    status_code=status.HTTP_201_CREATED,
+    summary="Create a new address",
+    description="Creates a new address entry in the address book."
+)
 async def create_address(
     data: AddressCreate,
     service: AddressService = Depends(get_address_service),
@@ -38,7 +44,12 @@ async def create_address(
         raise
 
 
-@router.get("/")
+@router.get(
+    "/",
+    status_code=status.HTTP_200_OK,
+    summary="Get all addresses",
+    description="Retrieves all addresses stored in the address book."
+)
 async def list_addresses(
     service: AddressService = Depends(get_address_service),
 ):
@@ -63,7 +74,12 @@ async def list_addresses(
         raise
 
 
-@router.put("/{address_id}")
+@router.put(
+    "/{address_id}",
+    status_code=status.HTTP_200_OK,
+    summary="Update an address",
+    description="Updates an existing address using the provided address ID."
+)
 async def update_address(
     address_id: int,
     data: AddressUpdate,
@@ -107,7 +123,12 @@ async def update_address(
         raise
 
 
-@router.delete("/{address_id}")
+@router.delete(
+    "/{address_id}",
+    status_code=status.HTTP_200_OK,
+    summary="Delete an address",
+    description="Deletes an address from the address book using the address ID."
+)
 async def delete_address(
     address_id: int,
     service: AddressService = Depends(get_address_service),
@@ -146,9 +167,13 @@ async def delete_address(
         )
         raise
 
-from fastapi import status
 
-@router.get("/nearby", status_code=status.HTTP_200_OK)
+@router.get(
+    "/nearby",
+    status_code=status.HTTP_200_OK,
+    summary="Find nearby addresses",
+    description="Returns all addresses within a specified distance (in kilometers) from the provided latitude and longitude."
+)
 async def get_nearby_addresses(
     latitude: float,
     longitude: float,
